@@ -1,0 +1,13 @@
+
+fineract:
+  base_url: "https://localhost:8443"
+  username: "mifos"
+  password: "password"
+  tenant_id: "default"
+
+db:
+  host: "localhost"
+  port: 3306
+  user: "root"
+  password: "skdcnwauicn2ucnaecasdsajdnizucawencascdca"
+  database: "fineract_default"
