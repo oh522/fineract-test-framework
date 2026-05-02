@@ -1,7 +1,5 @@
-# conftest.py（根目录）
 import pytest
 from api_test.common.base_api import BaseApi
-
 # 全局共享的 BaseApi 实例
 _api_instance = BaseApi()
 
@@ -20,10 +18,8 @@ def auth_session():
     })
 
     assert resp.status_code == 200, f"登录失败：{resp.text}"
-
     token = resp.json().get("base64EncodedAuthenticationKey")
     assert token, f"未获取到 token：{resp.json()}"
-
     # ✅ 用实例的 _session，不用类的
     _api_instance._session.headers.update({
         "Authorization": f"Basic {token}"
