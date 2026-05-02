@@ -36,6 +36,7 @@ class BaseApi:
     def post(self, path: str, json: dict = None, **kwargs):
         resp = self._session.post(self._url(path), json=json, **kwargs)
         return resp
+
 # import base64
 # import urllib3
 #
