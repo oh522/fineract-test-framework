@@ -117,8 +117,6 @@ def test_create_client_api_only(api, client_id):
             f"legalFormId 应为 1(Person), 实际 {legal_form_id}"
 
 
-# ... existing code ...
-
 
 def test_create_client_data_consistency(api, client_id):
     """验证 API 和数据库的数据一致性（面试亮点）"""
