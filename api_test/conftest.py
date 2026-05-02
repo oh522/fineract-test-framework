@@ -3,6 +3,20 @@ import pytest
 
 
 @pytest.fixture(scope="session")
+def login_id(api):
+    """创建测试用户，返回 loginId"""
+    payload = {
+                "password": "password",
+                "username": "mifos"
+}
+    res = api.post("/authentication", json=payload)
+    assert res.status_code == 200, f"登录失败：{res.text}"
+    return res.json()["base64EncodedAuthenticationKey"]
+
+
+
+
+@pytest.fixture(scope="session")
 def client_id(api):
     """创建测试客户，返回 clientId"""
     unique_id = f"AUTO-TEST-{int(time.time())}"
