@@ -1,41 +1,23 @@
-# debug_loan.py
-from api_test.common.base_api import BaseApi
-import json
+import requests
+import urllib3
 
-api = BaseApi()
+urllib3.disable_warnings()
 
-# ✅ 先登录
-resp = api.post("/authentication", json={
-    "username": "mifos",
-    "password": "password",
-    "tenantId": "default"
-})
-token = resp.json().get("base64EncodedAuthenticationKey")
-api._session.headers.update({"Authorization": f"Basic {token}"})
-print(f"✅ 登录成功")
+url = "https://localhost:8443/fineract-provider/api/v1/clients/1?command=activate"
 
-# 创建贷款
+
 payload = {
-    "clientId": 1,
-    "productId": 1,
-    "loanType": "individual",
-    "principal": 1000.0,
-    "loanTermFrequency": 12,
-    "loanTermFrequencyType": 2,
-    "numberOfRepayments": 12,
-    "repaymentEvery": 1,
-    "repaymentFrequencyType": 2,
-    "interestRatePerPeriod": 2,
-    "interestType": 0,
-    "interestCalculationPeriodType": 1,
-    "amortizationType": 1,
-    "submittedOnDate": "01 January 2024",
-    "expectedDisbursementDate": "01 January 2024",
+    "activationDate": "02 May 2026",
     "dateFormat": "dd MMMM yyyy",
-    "locale": "en_GB",
-    "transactionProcessingStrategyCode": "mifos-standard-strategy"
+    "locale": "en"
 }
 
-resp = api.post("/loans", json=payload)
-print(f"状态码：{resp.status_code}")
-print(f"响应：{json.dumps(resp.json(), indent=2, ensure_ascii=False)}")
+headers = {
+    "Authorization": "Basic xxxxx",  # 你的token
+    "Content-Type": "application/json"
+}
+
+res = requests.post(url, json=payload, headers=headers, verify=False)
+
+print("状态码:", res.status_code)
+print("响应:", res.text)

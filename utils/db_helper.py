@@ -22,6 +22,15 @@ class DBHelper:
             cursorclass=pymysql.cursors.DictCursor,
             autocommit=True
         )
+    def verify_client_exists(self, client_id: int) -> Dict[str, Any]:
+        """验证客户在数据库中存在"""
+        result = self.query_one(
+            "SELECT id, firstname, lastname, status_enum FROM m_client WHERE id = %s",
+            (client_id,)
+        )
+        if result is None:
+            raise AssertionError(f"客户 {client_id} 在数据库中不存在")
+        return result
 
     def query(self, sql: str, params: tuple = None) -> List[Dict[str, Any]]:
         """执行查询，返回所有结果"""
@@ -51,15 +60,7 @@ class DBHelper:
             self.conn.rollback()
             raise Exception(f"数据库执行失败: {str(e)}")
 
-    def verify_client_exists(self, client_id: int) -> Dict[str, Any]:
-        """验证客户在数据库中存在"""
-        result = self.query_one(
-            "SELECT id, firstname, lastname, status_enum FROM m_client WHERE id = %s",
-            (client_id,)
-        )
-        if result is None:
-            raise AssertionError(f"客户 {client_id} 在数据库中不存在")
-        return result
+
 
     def verify_loan_status(self, loan_id: int, expected_status: int) -> Dict[str, Any]:
         """
