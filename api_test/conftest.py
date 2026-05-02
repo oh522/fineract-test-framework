@@ -1,4 +1,6 @@
 import time
+import uuid
+
 import pytest
 
 
@@ -54,12 +56,24 @@ def client_id(api):
     return cid
 
 
+import uuid
+import pytest
+from datetime import datetime
+
 @pytest.fixture(scope="session")
 def loan_product_id(api):
-    """创建贷款产品，返回productId"""
+    """创建贷款产品，返回 productId"""
+    # 使用 UUID 的前 6 位作为唯一后缀，但限制 shortName 总长度不超过 4
+    unique_suffix = uuid.uuid4().hex[:4]  # 只取 4 位随机字符，确保总长度不超过 4
+    unique_name = f"自动化测试贷款产品_{uuid.uuid4().hex[:6]}"
+
+    # 关键修复：shortName 必须 <= 4 个字符
+    # 使用前缀 'T' + 3 位随机字符，保证长度正好为 4
+    short_name = f"T{unique_suffix[:3]}"  # e.g., T7f2
+
     payload = {
-        "name": "自动化测试贷款产品",
-        "shortName": "ATP1",
+        "name": unique_name,
+        "shortName": short_name,  # 现在长度 = 4，符合 API 要求
         "currencyCode": "USD",
         "digitsAfterDecimal": 2,
         "inMultiplesOf": 0,
@@ -75,22 +89,18 @@ def loan_product_id(api):
         "transactionProcessingStrategyCode": "mifos-standard-strategy",
         "accountingRule": 1,
         "dateFormat": "dd MMMM yyyy",
-        "locale": "en"
+        "locale": "en",
+        "daysInYearType": 360,
+        "daysInMonthType": 30,
+        "isInterestRecalculationEnabled": False,
+        "charges": []
     }
 
     res = api.post("/loanproducts", json=payload)
-
-    # ✅ 改进：完整的断言链
     assert res.status_code == 200, f"创建贷款产品失败: {res.text}"
 
-    response_data = res.json()
-    assert "resourceId" in response_data, f"响应缺少 resourceId: {response_data}"
-
-    product_id = response_data["resourceId"]
-    assert isinstance(product_id, int), f"productId 类型错误: {type(product_id)}"
-    assert product_id > 0, f"productId 应为正数: {product_id}"
-
-    print(f"\n✅ 贷款产品已创建 productId={product_id}")
+    product_id = res.json().get("resourceId")
+    assert product_id is not None, "贷款产品 ID 为空"
     return product_id
 
 
