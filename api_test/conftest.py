@@ -2,7 +2,7 @@ import time
 import pytest
 
 @pytest.fixture(scope="session")
-def client_id(api_client):
+def client_id(api):
     """创建测试客户，返回 clientId"""
     unique_id = f"AUTO-TEST-{int(time.time())}"
     payload = {
@@ -17,7 +17,7 @@ def client_id(api_client):
         "externalId": unique_id
     }
     # 统一使用 api_client，自动处理 URL 拼接
-    res = api_client.post("/clients", json=payload)
+    res = api.post("/clients", json=payload)
     assert res.status_code == 200, f"创建客户失败: {res.text}"
     cid = res.json().get("clientId") or res.json().get("resourceId")
     print(f"\n✅ 测试客户已创建 clientId={cid}")
