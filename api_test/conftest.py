@@ -16,7 +16,6 @@ def client_id(api):
         "locale": "en",
         "externalId": unique_id
     }
-    # 统一使用 api_client，自动处理 URL 拼接
     res = api.post("/clients", json=payload)
     assert res.status_code == 200, f"创建客户失败: {res.text}"
     cid = res.json().get("clientId") or res.json().get("resourceId")
@@ -24,7 +23,7 @@ def client_id(api):
     return cid
 
 @pytest.fixture(scope="session")
-def loan_product_id(api_session, base_url):
+def loan_product_id(api):
     """创建贷款产品，返回productId"""
     payload = {
         "name": "自动化测试贷款产品",
@@ -46,14 +45,14 @@ def loan_product_id(api_session, base_url):
         "dateFormat": "dd MMMM yyyy",
         "locale": "en"
     }
-    res = api_session.post(f"{base_url}/loanproducts", json=payload)
+    res = api.post("/loanproducts", json=payload)
     assert res.status_code == 200, f"创建贷款产品失败: {res.text}"
     product_id = res.json()["resourceId"]
     print(f"\n✅ 贷款产品已创建 productId={product_id}")
     return product_id
 
 @pytest.fixture(scope="session")
-def savings_product_id(api_session, base_url):
+def savings_product_id(api):
     """创建储蓄产品，返回productId"""
     payload = {
         "name": "自动化测试储蓄产品",
@@ -69,14 +68,14 @@ def savings_product_id(api_session, base_url):
         "accountingRule": 1,
         "locale": "en"
     }
-    res = api_session.post(f"{base_url}/savingsproducts", json=payload)
+    res = api.post("/savingsproducts", json=payload)
     assert res.status_code == 200, f"创建储蓄产品失败: {res.text}"
     pid = res.json()["resourceId"]
     print(f"\n✅ 储蓄产品已创建 productId={pid}")
     return pid
 
 @pytest.fixture(scope="session")
-def loan_id(api_session, base_url, client_id, loan_product_id):
+def loan_id(api, client_id, loan_product_id):
     """创建并审批放款，返回处于ACTIVE状态的loanId"""
     # 提交申请
     apply_payload = {
@@ -98,7 +97,7 @@ def loan_id(api_session, base_url, client_id, loan_product_id):
         "dateFormat": "dd MMMM yyyy",
         "locale": "en"
     }
-    res = api_session.post(f"{base_url}/loans", json=apply_payload)
+    res = api.post("/loans", json=apply_payload)
     assert res.status_code == 200, f"贷款申请失败: {res.text}"
     lid = res.json()["loanId"]
 
@@ -109,8 +108,8 @@ def loan_id(api_session, base_url, client_id, loan_product_id):
         "dateFormat": "dd MMMM yyyy",
         "locale": "en"
     }
-    res = api_session.post(
-        f"{base_url}/loans/{lid}?command=approve",
+    res = api.post(
+        f"/loans/{lid}?command=approve",
         json=approve_payload
     )
     assert res.status_code == 200, f"贷款审批失败: {res.text}"
@@ -121,10 +120,11 @@ def loan_id(api_session, base_url, client_id, loan_product_id):
         "dateFormat": "dd MMMM yyyy",
         "locale": "en"
     }
-    res = api_session.post(
-        f"{base_url}/loans/{lid}?command=disburse",
+    res = api.post(
+        f"/loans/{lid}?command=disburse",
         json=disburse_payload
     )
     assert res.status_code == 200, f"放款失败: {res.text}"
     print(f"\n✅ 贷款已放款 loanId={lid}")
     return lid
+
