@@ -8,7 +8,7 @@ def api():
     """提供全局 BaseApi 实例"""
     return _api_instance
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def auth_session():
     """全局登录，自动应用于所有测试"""
     resp = _api_instance.post("/authentication", json={
