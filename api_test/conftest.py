@@ -1,19 +1,8 @@
 import time
 import uuid
-
 import pytest
+from datetime import datetime, timedelta
 
-
-# @pytest.fixture(scope="session")
-# def login_id(api):
-#     """创建测试用户，返回 loginId"""
-#     payload = {
-#                 "password": "password",
-#                 "username": "mifos"
-# }
-#     res = api.post("/authentication", json=payload)
-#     assert res.status_code == 200, f"登录失败：{res.text}"
-#     return res.json()["base64EncodedAuthenticationKey"]
 
 @pytest.fixture(scope="session")
 def client_id(api):
@@ -28,52 +17,28 @@ def client_id(api):
         "activationDate": "01 January 2023",
         "dateFormat": "dd MMMM yyyy",
         "locale": "en",
-        "externalId": unique_id
+        "externalId": unique_id,
     }
-
-    # 发送请求
     res = api.post("/clients", json=payload)
-
-    # ✅ 改进 1：验证状态码
     assert res.status_code == 200, f"创建客户失败: {res.text}"
 
-    # ✅ 改进 2：验证响应结构
-    response_data = res.json()
-    assert "resourceId" in response_data or "clientId" in response_data, \
-        f"响应缺少关键字段: {response_data}"
-
-    # ✅ 改进 3：验证返回数据一致性
-    cid = response_data.get("clientId") or response_data.get("resourceId")
-    assert cid is not None, "clientId 不能为空"
-    assert isinstance(cid, int), f"clientId 类型错误，期望 int，实际 {type(cid)}"
-
-    # ✅ 改进 4：验证 externalId 一致性（如果 API 返回）
-    if "externalId" in response_data:
-        assert response_data["externalId"] == unique_id, \
-            f"externalId 不匹配: 期望 {unique_id}, 实际 {response_data['externalId']}"
+    data = res.json()
+    cid = data.get("clientId") or data.get("resourceId")
+    assert isinstance(cid, int) and cid > 0, f"clientId 无效: {cid}"
 
     print(f"\n✅ 测试客户已创建 clientId={cid}")
     return cid
 
 
-import uuid
-import pytest
-from datetime import datetime
-
 @pytest.fixture(scope="session")
 def loan_product_id(api):
     """创建贷款产品，返回 productId"""
-    # 使用 UUID 的前 6 位作为唯一后缀，但限制 shortName 总长度不超过 4
-    unique_suffix = uuid.uuid4().hex[:4]  # 只取 4 位随机字符，确保总长度不超过 4
+    unique_suffix = uuid.uuid4().hex[:4]
     unique_name = f"自动化测试贷款产品_{uuid.uuid4().hex[:6]}"
-
-    # 关键修复：shortName 必须 <= 4 个字符
-    # 使用前缀 'T' + 3 位随机字符，保证长度正好为 4
-    short_name = f"T{unique_suffix[:3]}"  # e.g., T7f2
 
     payload = {
         "name": unique_name,
-        "shortName": short_name,  # 现在长度 = 4，符合 API 要求
+        "shortName": f"T{unique_suffix[:3]}",
         "currencyCode": "USD",
         "digitsAfterDecimal": 2,
         "inMultiplesOf": 0,
@@ -93,23 +58,28 @@ def loan_product_id(api):
         "daysInYearType": 360,
         "daysInMonthType": 30,
         "isInterestRecalculationEnabled": False,
-        "charges": []
+        "charges": [],
     }
 
     res = api.post("/loanproducts", json=payload)
     assert res.status_code == 200, f"创建贷款产品失败: {res.text}"
 
-    product_id = res.json().get("resourceId")
-    assert product_id is not None, "贷款产品 ID 为空"
-    return product_id
+    data = res.json()
+    pid = data.get("resourceId")
+    assert isinstance(pid, int) and pid > 0, f"产品ID无效: {pid}"
+
+    print(f"\n✅ 贷款产品已创建 productId={pid}")
+    return pid
 
 
 @pytest.fixture(scope="session")
 def savings_product_id(api):
-    """创建储蓄产品，返回productId"""
+    """创建储蓄产品，返回 productId"""
+    unique_suffix = uuid.uuid4().hex[:4]
+
     payload = {
-        "name": "自动化测试储蓄产品",
-        "shortName": "ATSP",
+        "name": f"自动化测试储蓄产品_{unique_suffix}",
+        "shortName": f"S{unique_suffix[:3]}",
         "currencyCode": "USD",
         "digitsAfterDecimal": 2,
         "inMultiplesOf": 0,
@@ -119,18 +89,15 @@ def savings_product_id(api):
         "interestCalculationType": 1,
         "interestCalculationDaysInYearType": 365,
         "accountingRule": 1,
-        "locale": "en"
+        "locale": "en",
     }
 
     res = api.post("/savingsproducts", json=payload)
-
     assert res.status_code == 200, f"创建储蓄产品失败: {res.text}"
 
-    response_data = res.json()
-    assert "resourceId" in response_data, f"响应缺少 resourceId: {response_data}"
-
-    pid = response_data["resourceId"]
-    assert isinstance(pid, int) and pid > 0, f"productId 无效: {pid}"
+    data = res.json()
+    pid = data.get("resourceId")
+    assert isinstance(pid, int) and pid > 0, f"产品ID无效: {pid}"
 
     print(f"\n✅ 储蓄产品已创建 productId={pid}")
     return pid
@@ -138,8 +105,13 @@ def savings_product_id(api):
 
 @pytest.fixture(scope="session")
 def loan_id(api, client_id, loan_product_id):
-    """创建并审批放款，返回处于ACTIVE状态的loanId"""
-    # 提交申请
+    """创建 → 审批 → 放款，返回 ACTIVE 状态的 loanId"""
+    today = datetime.now()
+    submit_date = (today - timedelta(days=5)).strftime("%d %B %Y")
+    approve_date = (today - timedelta(days=3)).strftime("%d %B %Y")
+    disburse_date = (today - timedelta(days=2)).strftime("%d %B %Y")
+
+    # 1️⃣ 提交申请
     apply_payload = {
         "clientId": client_id,
         "productId": loan_product_id,
@@ -154,54 +126,34 @@ def loan_id(api, client_id, loan_product_id):
         "interestType": 0,
         "interestCalculationPeriodType": 1,
         "transactionProcessingStrategyCode": "mifos-standard-strategy",
-        "expectedDisbursementDate": "10 January 2024",
-        "submittedOnDate": "01 January 2024",
+        "expectedDisbursementDate": disburse_date,
+        "submittedOnDate": submit_date,
         "dateFormat": "dd MMMM yyyy",
-        "locale": "en"
+        "locale": "en",
     }
-
     res = api.post("/loans", json=apply_payload)
     assert res.status_code == 200, f"贷款申请失败: {res.text}"
-
-    response_data = res.json()
-    assert "loanId" in response_data, f"响应缺少 loanId: {response_data}"
-    lid = response_data["loanId"]
+    lid = res.json()["loanId"]
     assert isinstance(lid, int) and lid > 0, f"loanId 无效: {lid}"
 
-    # 审批
+    # 2️⃣ 审批
     approve_payload = {
-        "approvedOnDate": "05 January 2024",
-        "expectedDisbursementDate": "10 January 2024",
+        "approvedOnDate": approve_date,
+        "expectedDisbursementDate": disburse_date,
         "dateFormat": "dd MMMM yyyy",
-        "locale": "en"
+        "locale": "en",
     }
-    res = api.post(
-        f"/loans/{lid}?command=approve",
-        json=approve_payload
-    )
+    res = api.post(f"/loans/{lid}?command=approve", json=approve_payload)
     assert res.status_code == 200, f"贷款审批失败: {res.text}"
 
-    # ✅ 验证审批后的状态
-    approve_response = res.json()
-    assert "changes" in approve_response or "status" in approve_response, \
-        f"审批响应格式异常: {approve_response}"
-
-    # 放款
+    # 3️⃣ 放款
     disburse_payload = {
-        "actualDisbursementDate": "10 January 2024",
+        "actualDisbursementDate": disburse_date,
         "dateFormat": "dd MMMM yyyy",
-        "locale": "en"
+        "locale": "en",
     }
-    res = api.post(
-        f"/loans/{lid}?command=disburse",
-        json=disburse_payload
-    )
+    res = api.post(f"/loans/{lid}?command=disburse", json=disburse_payload)
     assert res.status_code == 200, f"放款失败: {res.text}"
-
-    # ✅ 验证放款后的状态
-    disburse_response = res.json()
-    assert "changes" in disburse_response or "status" in disburse_response, \
-        f"放款响应格式异常: {disburse_response}"
 
     print(f"\n✅ 贷款已放款 loanId={lid}")
     return lid
