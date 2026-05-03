@@ -3,6 +3,8 @@ import uuid
 import pytest
 from datetime import datetime, timedelta
 
+from conftest import api
+
 
 @pytest.fixture(scope="session")
 def client_id(api):
@@ -25,10 +27,9 @@ def client_id(api):
     data = res.json()
     cid = data.get("clientId") or data.get("resourceId")
     assert isinstance(cid, int) and cid > 0, f"clientId 无效: {cid}"
-
     print(f"\n✅ 测试客户已创建 clientId={cid}")
+    print(f"\n✅ 测试客户已创建 clientId={cid}, externalId={unique_id}")
     return cid
-
 
 @pytest.fixture(scope="session")
 def loan_product_id(api):

@@ -3,7 +3,7 @@ from api_test.common.base_api import BaseApi
 # 全局共享的 BaseApi 实例
 _api_instance = BaseApi()
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session", autouse=True)
 def api():
     """提供全局 BaseApi 实例"""
     return _api_instance
