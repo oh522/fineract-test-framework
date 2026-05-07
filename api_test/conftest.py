@@ -3,9 +3,6 @@ import uuid
 import pytest
 from datetime import datetime, timedelta
 
-# ❌ 删掉这行，fixture 不需要手动 import
-# from conftest import api
-
 
 @pytest.fixture(scope="session")
 def client_id(api):
