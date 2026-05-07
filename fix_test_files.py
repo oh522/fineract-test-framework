@@ -2,7 +2,7 @@
 import os
 import re
 
-auto_gen_dir = "testcase/auto_gen"
+auto_gen_dir = "ai_testcase/testcase/auto_gen"
 
 for root, dirs, files in os.walk(auto_gen_dir):
     for file in files:

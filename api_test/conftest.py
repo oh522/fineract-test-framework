@@ -96,8 +96,8 @@ def savings_product_id(api):
 def loan_id(api, client_id, loan_product_id):
     """创建 → 审批 → 放款，返回 ACTIVE 状态的 loanId"""
     today = datetime.now()
-    submit_date   = (today - timedelta(days=5)).strftime("%d %B %Y")
-    approve_date  = (today - timedelta(days=3)).strftime("%d %B %Y")
+    submit_date = (today - timedelta(days=5)).strftime("%d %B %Y")
+    approve_date = (today - timedelta(days=3)).strftime("%d %B %Y")
     disburse_date = (today - timedelta(days=2)).strftime("%d %B %Y")
 
     DATE_META = {"dateFormat": "dd MMMM yyyy", "locale": "en"}

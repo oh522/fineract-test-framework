@@ -1,6 +1,0 @@
-
-✅ 测试客户已创建 clientId=41
-
-✅ 测试客户已创建 clientId=41, externalId=AUTO-TEST-1777799502
-
-✅ 贷款产品已创建 productId=26
