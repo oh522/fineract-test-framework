@@ -38,7 +38,8 @@ class BaseApi:
     # ========== 内部工具 ==========
 
     def _url(self, path: str) -> str:
-        return f"{self.base_url}/fineract-provider/api/v1{path}"
+        return (f"{self.base_url}/fineract-provider/ap"
+                f"i/v1{path}")
 
     def _request(self, method: str, path: str, **kwargs) -> requests.Response:
         """统一请求入口，带日志和异常处理"""
