@@ -141,3 +141,37 @@ def loan_id(api, client_id, loan_product_id):
 
     print(f"\n✅ 贷款已放款 loanId={lid}")
     return lid
+
+
+@pytest.fixture(scope="session")
+def savings_account_id(api, client_id, savings_product_id):
+    """创建 → 审批 → 激活，返回 ACTIVE 状态的储蓄账户ID"""
+    today = datetime.now()
+    DATE_META = {"dateFormat": "dd MMMM yyyy", "locale": "en"}
+
+    # 1. 创建储蓄账户
+    res = api.post("/savingsaccounts", json={
+        "clientId": client_id,
+        "productId": savings_product_id,
+        "submittedOnDate": today.strftime("%d %B %Y"),
+        **DATE_META,
+    })
+    assert res.status_code == 200, f"创建储蓄账户失败: {res.text}"
+    sid = res.json()["savingsId"]
+
+    # 2. 审批
+    res = api.post(f"/savingsaccounts/{sid}?command=approve", json={
+        "approvedOnDate": today.strftime("%d %B %Y"),
+        **DATE_META,
+    })
+    assert res.status_code == 200, f"审批储蓄账户失败: {res.text}"
+
+    # 3. 激活
+    res = api.post(f"/savingsaccounts/{sid}?command=activate", json={
+        "activatedOnDate": today.strftime("%d %B %Y"),
+        **DATE_META,
+    })
+    assert res.status_code == 200, f"激活储蓄账户失败: {res.text}"
+
+    print(f"\n✅ 储蓄账户已激活 savingsAccountId={sid}")
+    return sid
