@@ -1,13 +1,33 @@
-
-fineract:
-  base_url: "https://localhost:8443"
-  username: "mifos"
-  password: "password"
-  tenant_id: "default"
-
-db:
-  host: "localhost"
-  port: 3306
-  user: "root"
-  password: "skdcnwauicn2ucnaecasdsajdnizucawencascdca"
-  database: "fineract_default"
+#通过环境变量 TEST_ENV = dev/test/prod 切换,默认为 test
+env: test
+test:
+  fineract:
+    base_url: "https://localhost:8443"
+    username: "mifos"
+    password: "password"
+    tenant_id: "default"
+  db:
+    host: "localhost"
+    port: "3306"
+    username: "root"
+    password: "skdcnwauicn2ucnaecasdsajdnizucawencascdca"
+    database: "fineract_default"
+dev:
+  fineract:
+    base_url: "https://localhost:8443"
+    username: "mifos"
+    password: "dev_password"
+    tenant_id: "default"
+  db:
+    host: "dev-db"
+    port: "3306"
+    user: "root"
+    password: "dev_db_pass"
+    database: "fineract_default"
+#主要用途
+#多环境支持：通过环境变量轻松切换测试、开发等不同环境
+#集中管理配置：将 API 和数据库连接信息统一管理
+#安全隔离：不同环境使用不同的凭证，避免混淆
+#注意事项
+#在 test 环境中数据库字段使用 username，而在 dev 环境中使用 user，这可能在代码读取时需要特别注意兼容性
+#密码以明文形式存储，在生产环境中建议使用加密或环境变量方式处理敏感信息
