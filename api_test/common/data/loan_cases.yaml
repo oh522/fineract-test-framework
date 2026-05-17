@@ -1,0 +1,16 @@
+# 认证接口参数化测试数据
+failure_cases:
+  - id: 密码错误
+    username: mifos
+    password: wrong_password
+    expected_codes: [401, 403]
+
+  - id: 用户不存在
+    username: not_exist_user_999
+    password: password
+    expected_codes: [401, 403]
+
+  - id: 空凭证
+    username: ""
+    password: ""
+    expected_codes: [400, 401]
