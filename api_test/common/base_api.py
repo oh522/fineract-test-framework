@@ -3,31 +3,29 @@ import json
 import logging
 import os
 import time
+from pathlib import Path
+from typing import Optional
 import requests
 import yaml
-from pathlib import Path
-
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 logger = logging.getLogger(__name__)
 
-
 class BaseApi:
-    """Fineract API 请求基类 — 统一请求入口、日志、重试、异常处理"""
-
-    def __init__(self, config_path: str = None):
+    """
+    BaseApi是 Fineract API 请求基类 - 统一请求入口、日志、重试、异常处理
+    """
+    def __init__(self, config_path: Optional[str] = None):
         if config_path is None:
             config_path = Path(__file__).parents[2] / "config" / "config.yaml"
-
         with open(config_path, "r", encoding="utf-8") as f:
             full_cfg = yaml.safe_load(f)
 
-        # ✅ 多环境支持：优先读环境变量
         env = os.environ.get("TEST_ENV", full_cfg.get("env", "test"))
         cfg = full_cfg[env]["fineract"]
-        logger.info(f"当前测试环境: {env} | base_url: {cfg['base_url']}")
+        logger.info(f"当前环境: {env} | base_url: {cfg['base_url']}")
 
         self.base_url = cfg["base_url"].rstrip("/")
         self.tenant_id = cfg["tenant_id"]
@@ -35,16 +33,16 @@ class BaseApi:
         token = base64.b64encode(
             f"{cfg['username']}:{cfg['password']}".encode()
         ).decode()
-
         self._session = requests.Session()
-        self._session.verify = False
+        # self._session.verify = False
+        self._session.verify = os.environ.get("SSL_VERIFY", "false").lower() == "true"
         self._session.headers.update({
             "Authorization": f"Basic {token}",
             "Fineract-Platform-TenantId": self.tenant_id,
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
         })
 
-    # ─── 内部工具 ──────────────────────────────────────────
+    # ---内部工具-------------------------------------------------------------
 
     def _url(self, path: str) -> str:
         return f"{self.base_url}/fineract-provider/api/v1{path}"
@@ -76,7 +74,7 @@ class BaseApi:
 
         raise ConnectionError(f"连接失败(已重试3次): {url}") from last_exc
 
-    # ─── HTTP 方法 ──────────────────────────────────────────
+        # ─── HTTP 方法 ──────────────────────────────────────────
 
     def get(self, path: str, params: dict = None, **kwargs):
         return self._request("GET", path, params=params, **kwargs)
@@ -93,7 +91,7 @@ class BaseApi:
     def delete(self, path: str, **kwargs):
         return self._request("DELETE", path, **kwargs)
 
-    # ─── 数据目录 ──────────────────────────────────────────
+        # ─── 数据目录 ──────────────────────────────────────────
 
     def _data_dir(self) -> Path:
         data_dir = Path(__file__).parent / "data"
