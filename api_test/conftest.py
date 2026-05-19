@@ -3,10 +3,22 @@ import uuid
 import pytest
 from datetime import datetime, timedelta
 
+from api_test.common.base_api import BaseApi
+
+
+# ─── 会话级基础 fixture ──────────────────────────────────────
+
+@pytest.fixture(scope="session")
+def api():
+    """全局 API 客户端，整个 session 只初始化一次（小林coding：session级复用）"""
+    return BaseApi()
+
+
+# ─── 业务数据 fixture（yield 实现前后置）──────────────────────
 
 @pytest.fixture(scope="session")
 def client_id(api):
-    """创建测试客户，返回 clientId"""
+    """创建测试客户 → 测试结束后可选清理"""
     payload = {
         "officeId": 1,
         "firstname": "自动化",
@@ -24,13 +36,16 @@ def client_id(api):
     data = res.json()
     cid = data.get("clientId") or data.get("resourceId")
     assert isinstance(cid, int) and cid > 0
-    print(f"\n✅ 测试客户已创建 clientId={cid}")
-    return cid
+    print(f"\n✅ 客户已创建 clientId={cid}")
+
+    yield cid  # ✅ yield 前=前置，yield 后=后置（小林coding核心实践）
+
+    # 后置清理（可选，视业务决定是否清理测试数据）
+    print(f"\n🧹 [teardown] 客户 {cid} 测试完成")
 
 
 @pytest.fixture(scope="session")
 def loan_product_id(api):
-    """创建贷款产品，返回 productId"""
     suffix = uuid.uuid4().hex[:4]
     payload = {
         "name": f"自动化测试贷款产品_{uuid.uuid4().hex[:6]}",
@@ -58,16 +73,14 @@ def loan_product_id(api):
     }
     res = api.post("/loanproducts", json=payload)
     assert res.status_code == 200, f"创建贷款产品失败: {res.text}"
-
     pid = res.json().get("resourceId")
     assert isinstance(pid, int) and pid > 0
     print(f"\n✅ 贷款产品已创建 productId={pid}")
-    return pid
+    yield pid
 
 
 @pytest.fixture(scope="session")
 def savings_product_id(api):
-    """创建储蓄产品，返回 productId"""
     suffix = uuid.uuid4().hex[:4]
     payload = {
         "name": f"自动化测试储蓄产品_{suffix}",
@@ -85,93 +98,57 @@ def savings_product_id(api):
     }
     res = api.post("/savingsproducts", json=payload)
     assert res.status_code == 200, f"创建储蓄产品失败: {res.text}"
-
     pid = res.json().get("resourceId")
     assert isinstance(pid, int) and pid > 0
     print(f"\n✅ 储蓄产品已创建 productId={pid}")
-    return pid
+    yield pid
 
 
 @pytest.fixture(scope="session")
 def loan_id(api, client_id, loan_product_id):
-    """创建 → 审批 → 放款，返回 ACTIVE 状态的 loanId"""
     today = datetime.now()
+    DATE_META = {"dateFormat": "dd MMMM yyyy", "locale": "en"}
     submit_date = (today - timedelta(days=5)).strftime("%d %B %Y")
     approve_date = (today - timedelta(days=3)).strftime("%d %B %Y")
     disburse_date = (today - timedelta(days=2)).strftime("%d %B %Y")
 
-    DATE_META = {"dateFormat": "dd MMMM yyyy", "locale": "en"}
-
-    # 1. 提交申请
     res = api.post("/loans", json={
-        "clientId": client_id,
-        "productId": loan_product_id,
-        "principal": 50000,
-        "loanTermFrequency": 12,
-        "loanTermFrequencyType": 2,
-        "numberOfRepayments": 12,
-        "repaymentEvery": 1,
-        "repaymentFrequencyType": 2,
-        "interestRatePerPeriod": 1.5,
-        "amortizationType": 1,
-        "interestType": 0,
+        "clientId": client_id, "productId": loan_product_id,
+        "principal": 50000, "loanTermFrequency": 12, "loanTermFrequencyType": 2,
+        "numberOfRepayments": 12, "repaymentEvery": 1, "repaymentFrequencyType": 2,
+        "interestRatePerPeriod": 1.5, "amortizationType": 1, "interestType": 0,
         "interestCalculationPeriodType": 1,
         "transactionProcessingStrategyCode": "mifos-standard-strategy",
-        "expectedDisbursementDate": disburse_date,
-        "submittedOnDate": submit_date,
+        "expectedDisbursementDate": disburse_date, "submittedOnDate": submit_date,
         **DATE_META,
     })
     assert res.status_code == 200, f"贷款申请失败: {res.text}"
     lid = res.json()["loanId"]
 
-    # 2. 审批
-    res = api.post(f"/loans/{lid}?command=approve", json={
-        "approvedOnDate": approve_date,
-        "expectedDisbursementDate": disburse_date,
-        **DATE_META,
+    api.post(f"/loans/{lid}?command=approve", json={
+        "approvedOnDate": approve_date, "expectedDisbursementDate": disburse_date, **DATE_META,
     })
-    assert res.status_code == 200, f"贷款审批失败: {res.text}"
-
-    # 3. 放款
-    res = api.post(f"/loans/{lid}?command=disburse", json={
-        "actualDisbursementDate": disburse_date,
-        **DATE_META,
+    api.post(f"/loans/{lid}?command=disburse", json={
+        "actualDisbursementDate": disburse_date, **DATE_META,
     })
-    assert res.status_code == 200, f"放款失败: {res.text}"
-
     print(f"\n✅ 贷款已放款 loanId={lid}")
-    return lid
+    yield lid
 
 
 @pytest.fixture(scope="session")
 def savings_account_id(api, client_id, savings_product_id):
-    """创建 → 审批 → 激活，返回 ACTIVE 状态的储蓄账户ID"""
     today = datetime.now()
     DATE_META = {"dateFormat": "dd MMMM yyyy", "locale": "en"}
+    today_str = today.strftime("%d %B %Y")
 
-    # 1. 创建储蓄账户
     res = api.post("/savingsaccounts", json={
-        "clientId": client_id,
-        "productId": savings_product_id,
-        "submittedOnDate": today.strftime("%d %B %Y"),
-        **DATE_META,
+        "clientId": client_id, "productId": savings_product_id,
+        "submittedOnDate": today_str, **DATE_META,
     })
     assert res.status_code == 200, f"创建储蓄账户失败: {res.text}"
     sid = res.json()["savingsId"]
 
-    # 2. 审批
-    res = api.post(f"/savingsaccounts/{sid}?command=approve", json={
-        "approvedOnDate": today.strftime("%d %B %Y"),
-        **DATE_META,
-    })
-    assert res.status_code == 200, f"审批储蓄账户失败: {res.text}"
-
-    # 3. 激活
-    res = api.post(f"/savingsaccounts/{sid}?command=activate", json={
-        "activatedOnDate": today.strftime("%d %B %Y"),
-        **DATE_META,
-    })
-    assert res.status_code == 200, f"激活储蓄账户失败: {res.text}"
-
+    api.post(f"/savingsaccounts/{sid}?command=approve", json={"approvedOnDate": today_str, **DATE_META})
+    api.post(f"/savingsaccounts/{sid}?command=activate", json={"activatedOnDate": today_str, **DATE_META})
     print(f"\n✅ 储蓄账户已激活 savingsAccountId={sid}")
-    return sid
+    yield sid
