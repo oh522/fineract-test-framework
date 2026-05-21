@@ -75,7 +75,7 @@ class DBHelper:
             logger.info(f"execute 影响 {affected} 行")
             return affected
 
-    # ─── 业务级校验方法（对应小林coding典型场景） ────────────
+    # ─── 业务级校验方法 ────────────
 
     def assert_client_active(self, client_id: int):
         """校验客户状态为 Active(300)"""
