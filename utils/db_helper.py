@@ -28,7 +28,7 @@ class DBHelper:
     def __enter__(self):
         self._conn = pymysql.connect(**self._cfg)
         logger.info(f"DB 已连接： {self._cfg['host']}/{self._cfg['database']}")
-        return  self
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if self.conn:
@@ -64,7 +64,7 @@ class DBHelper:
         )
 
     def assert_loan_active(self, loan_id: int):
-        row =self.query_one("SELECT * FROM loans WHERE id = %s", (loan_id,))
+        row = self.query_one("SELECT * FROM loans WHERE id = %s", (loan_id,))
         assert row, f"贷款 {loan_id} 不存在"
         assert row["status_enum"] == 300, (
             f"贷款 {loan_id} 状态期望 300(Active)，实际 {row['status_enum']}"
