@@ -16,7 +16,7 @@ class DBHelper:
         cfg = full_cfg[env]["db"]
         self._cfg = {
             "host": cfg["host"],
-            "port": cfg["port"],
+            "port": int(cfg["port"]),
             "user": cfg["user"],
             "password": cfg["password"],
             "database": cfg["database"],
@@ -57,18 +57,22 @@ class DBHelper:
             return affected
 
     def assert_client_active(self, client_id: int):
-        row = self.query_one("SELECT * FROM clients WHERE id = %s", (client_id,))
+        row = self.query_one("SELECT * FROM m_client WHERE id = %s", (client_id,))
         assert row, f"客户 {client_id} 不存在"
         assert row["status_enum"] == 300, (
             f"客户 {client_id} 状态期望 300(Active)，实际 {row['status_enum']}"
         )
 
     def assert_loan_active(self, loan_id: int):
-        row = self.query_one("SELECT * FROM loans WHERE id = %s", (loan_id,))
+        row = self.query_one("SELECT * FROM m_loan WHERE id = %s", (loan_id,))
         assert row, f"贷款 {loan_id} 不存在"
-        assert row["status_enum"] == 300, (
-            f"贷款 {loan_id} 状态期望 300(Active)，实际 {row['status_enum']}"
+        actual_status = row.get("loan_status_id")
+        assert actual_status == 300, (
+            f"贷款 {loan_id} 状态期望 300(Active)，实际 {actual_status}"
         )
+
+
+
 
     def assert_user_exists(self, username: str):
         row = self.query_one("SELECT * FROM m_appuser WHERE username = %s", (username,))
