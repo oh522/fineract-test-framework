@@ -25,7 +25,7 @@ class LoanApi(BaseApi):
 
     def get_schedule(self, loan_id: int):
         """查询还款计划"""
-        return self.get(f"/loans/{loan_id}/repaymentschedule")
+        return self.get(f"/loans/{loan_id}", params={"template": "true"})
 
     def repay(self, loan_id: int, payload: dict):
         """还款"""
