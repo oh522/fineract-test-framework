@@ -1,5 +1,7 @@
 import pytest
 from api_test.common.base_api import BaseApi
+from dotenv import load_dotenv
+load_dotenv()
 
 
 @pytest.fixture(scope="session")
