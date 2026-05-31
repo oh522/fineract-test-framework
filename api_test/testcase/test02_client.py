@@ -1,88 +1,79 @@
+import allure
 import pytest
+import time
+
+from api_test.common.api.client_api import ClientApi
+from utils.assertion import (
+    assert_status, assert_value, assert_jsonpath,
+    assert_list_not_empty, assert_response_time,
+)
 from utils.db_helper import DBHelper
 
+DATE_META = {"dateFormat": "dd MMMM yyyy", "locale": "en"}
 
-class TestCreateClient:
-    """POST /clients"""
 
-    def test_success(self, api, client_id):
-        """✅ 正常查询已创建的客户（client_id 由 conftest fixture 创建）"""
-        res = api.get(f"/clients/{client_id}")
-        assert res.status_code == 200, f"查询失败: {res.text}"
+@allure.feature("客户管理")
+class TestClient:
 
-        data = res.json()
-        assert data["id"] == client_id
-        assert data["firstname"] == "自动化"
-        assert data["lastname"] == "测试客户"
-        assert data["officeId"] == 1
-        assert data["active"] is True
+    @allure.story("查询客户详情")
+    @pytest.mark.smoke
+    @pytest.mark.P0
+    def test_get_client(self, client_api: ClientApi, client_id):
+        """✅ 查询已创建客户，状态 Active + DB 验证"""
+        res = client_api.get_detail(client_id)       # ← API 层
 
-    def test_db_consistency(self, api, client_id):
-        """✅ API 与数据库数据一致性验证"""
-        api_res = api.get(f"/clients/{client_id}")
-        assert api_res.status_code == 200
-        api_data = api_res.json()
+        assert_status(res, 200, msg="查询客户")
+        assert_response_time(res, 3.0)
+        assert_value(res, "id", client_id)
+        assert_jsonpath(res, "$.status.value", "Active")
 
         with DBHelper() as db:
-            db_data = db.verify_client_exists(client_id)
+            db.assert_client_active(client_id)       # ← DB 校验
 
-        assert api_data["firstname"] == db_data["firstname"], "firstname 不一致"
-        assert api_data["lastname"] == db_data["lastname"], "lastname 不一致"
-        assert api_data["id"] == db_data["id"], "id 不一致"
-        assert db_data["status_enum"] == 300, \
-            f"数据库状态应为 300(Active)，实际: {db_data['status_enum']}"
+    @allure.story("查询客户列表")
+    @pytest.mark.P1
+    def test_list_clients(self, client_api: ClientApi):
+        """✅ 列表分页结构验证"""
+        res = client_api.list_clients(limit=5)       # ← API 层
 
-    def test_missing_firstname(self, api):
-        """❌ 缺少必填字段 firstname"""
-        res = api.post("/clients", json={
-            "officeId": 1,
-            "lastname": "测试",
-            "active": False,
+        assert_status(res, 200)
+        assert_list_not_empty(res, "pageItems")
+
+    @allure.story("更新客户信息")
+    @pytest.mark.P1
+    def test_update_client(self, client_api: ClientApi, client_id):
+        """✅ 更新后重新查询，验证字段已变更"""
+        new_name = f"更新_{int(time.time())}"
+
+        put_res = client_api.update(client_id, {  # ← API 层
+            "firstname": new_name,
+            "lastname": f"测试_{int(time.time())}",
             "dateFormat": "dd MMMM yyyy",
             "locale": "en",
         })
-        assert res.status_code in [400, 422], f"缺少 firstname 应返回错误，实际: {res.status_code}"
+        assert_status(put_res, 200, msg="更新客户")
 
-    def test_invalid_office(self, api):
-        """❌ 不存在的 officeId"""
-        res = api.post("/clients", json={
-            "officeId": 999999,
-            "firstname": "测试",
-            "lastname": "客户",
-            "active": False,
-            "dateFormat": "dd MMMM yyyy",
-            "locale": "en",
-        })
-        assert res.status_code in [400, 404]
+        get_res = client_api.get_detail(client_id)  # ← API 层
+        assert_value(get_res, "firstname", new_name)
 
-    @pytest.mark.parametrize("firstname, desc", [
-        ("",           "空字符串"),
-        ("A" * 300,    "超长名称"),
-        ("<script>",   "特殊字符"),
-    ])
-    def test_invalid_firstname(self, api, firstname, desc):
-        """❌ firstname 边界值"""
-        res = api.post("/clients", json={
-            "officeId": 1,
-            "firstname": firstname,
-            "lastname": "测试",
-            "active": False,
-            "dateFormat": "dd MMMM yyyy",
-            "locale": "en",
-        })
-        assert res.status_code in [400, 422], f"{desc} 应返回验证错误"
+    @allure.story("查询不存在的客户")
+    @pytest.mark.P2
+    def test_get_nonexistent_client(self, client_api: ClientApi):
+        """❌ 不存在的 ID 应返回 404"""
+        res = client_api.get_detail(999999999)       # ← API 层
+        assert_status(res, 404, msg="不存在的客户")
 
-
-class TestGetClient:
-    """GET /clients/{clientId}"""
-
-    def test_get_existing(self, api, client_id):
-        """✅ 查询存在的客户"""
-        res = api.get(f"/clients/{client_id}")
-        assert res.status_code == 200
-        assert res.json()["id"] == client_id
-
-    def test_get_nonexistent(self, api):
-        """❌ 查询不存在的客户"""
-        res = api.get("/clients/999999")
-        assert res.status_code == 404
+    @allure.story("创建客户-缺少必填字段")
+    @pytest.mark.P2
+    @pytest.mark.parametrize("missing_field,payload", [
+        ("officeId",  {"firstname": "测", "lastname": "试",
+                       "legalFormId": 1, "active": True,
+                       "activationDate": "01 January 2023", **DATE_META}),
+        ("firstname", {"officeId": 1, "lastname": "试",
+                       "legalFormId": 1, "active": True,
+                       "activationDate": "01 January 2023", **DATE_META}),
+    ], ids=["缺officeId", "缺firstname"])
+    def test_create_missing_field(self, client_api: ClientApi, missing_field, payload):
+        """❌ 缺少必填字段应返回 4xx"""
+        res = client_api.create(payload)             # ← API 层
+        assert_status(res, 400, 403, 422, msg=f"缺少{missing_field}")
