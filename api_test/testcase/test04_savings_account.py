@@ -37,7 +37,6 @@ class TestSavingsAccount:
     def test_deposit(self, savings_api: SavingsApi, savings_account_id):
         """✅ 存款后余额增加"""
         today = datetime.now().strftime("%d %B %Y")
-
         before_data = savings_api.get_detail(savings_account_id).json()
         summary = before_data.get("summary", {})
         account_balance = summary.get("accountBalance", 0)
@@ -66,8 +65,6 @@ class TestSavingsAccount:
             after = float(account_balance_after) if account_balance_after else 0
 
         assert after > before, "存款后余额未增加"
-
-# ... existing code ...
 
     @allure.story("取款操作")
     @pytest.mark.P1
