@@ -8,6 +8,7 @@ from api_test.common.api.auth_api import AuthApi
 from api_test.common.api.client_api import ClientApi
 from api_test.common.api.loan_api import LoanApi
 from api_test.common.api.savings_api import SavingsApi
+from common.api.user_api import UserApi
 
 
 # ══════════════════════════════════════════════════
@@ -52,6 +53,11 @@ def loan_api(base_api) -> LoanApi:
 @pytest.fixture(scope="session")
 def savings_api(base_api) -> SavingsApi:
     return _clone(SavingsApi, base_api)
+
+
+@pytest.fixture(scope="session")
+def user_api(base_api) -> UserApi:
+    return _clone(UserApi, base_api)
 
 
 # ══════════════════════════════════════════════════
@@ -217,3 +223,24 @@ def savings_account_id(savings_api, client_id, savings_product_id):
 
     print(f"\n✅ 储蓄账户已激活 savingsAccountId={sid}")
     yield sid
+
+
+@pytest.fixture(scope="session")
+def users_id(user_api):
+    """获取默认用户 mifos 的 userId"""
+    res = user_api.retrieve_list()
+    assert res.status_code == 200, f"获取用户列表失败: {res.text}"
+
+    users = res.json() if isinstance(res.json(), list) else res.json().get("pageItems", [])
+    mifos_user = next((u for u in users if u.get("username") == "mifos"), None)
+
+    assert mifos_user is not None, "未找到默认用户 mifos"
+    user_id = mifos_user.get("id")
+
+    assert isinstance(user_id, int) and user_id > 0
+    print(f"\n✅ 使用默认用户 userId={user_id}, username=mifos")
+    yield user_id
+
+
+
+
