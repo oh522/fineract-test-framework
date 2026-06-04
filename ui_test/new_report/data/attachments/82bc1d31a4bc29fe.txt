@@ -1,0 +1,1 @@
+[32mINFO    [0m root:test_06_credit_review.py:26 额度申请记录结果：通过

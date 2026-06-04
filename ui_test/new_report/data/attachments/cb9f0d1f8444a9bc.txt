@@ -1,0 +1,1 @@
+[32mINFO    [0m root:test_04_credit_app.py:30 申请额度结果：1,258.00

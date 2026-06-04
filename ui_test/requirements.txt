@@ -1,0 +1,5 @@
+pytest==9.0.2
+allure-pytest==2.15.3
+selenium>=4.0
+Faker==40.11.1
+# 其他项目依赖...
