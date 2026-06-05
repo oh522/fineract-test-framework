@@ -1,0 +1,8 @@
+2026-06-04 10:38:37,667 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/offices/5
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-06-04 10:38:37,676 [INFO] ← 200 /offices/5 [0.01s]
+2026-06-04 10:38:37,676 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/offices/external-id/TEST-OFFICE-823bb037
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-06-04 10:38:37,683 [INFO] ← 200 /offices/external-id/TEST-OFFICE-823bb037 [0.01s]

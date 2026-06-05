@@ -1,0 +1,15 @@
+2026-05-25 14:05:33,991 [INFO] → PUT https://localhost:8443/fineract-provider/api/v1/clients/7
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:05:34,128 [INFO] ← 400 /clients/7 [0.14s]
+2026-05-25 14:05:34,128 [WARNING]   响应体: {"developerMessage":"The request was invalid. This typically will happen due to validation errors which are provided.","httpStatusCode":"400","defaultUserMessage":"Validation errors exist.","userMessageGlobalisationCode":"validation.msg.validation.errors.exist","errors":[{"developerMessage":"The par
+2026-05-25 14:05:35,246 [INFO] → PUT https://localhost:8443/fineract-provider/api/v1/clients/7
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:05:35,340 [INFO] ← 400 /clients/7 [0.09s]
+2026-05-25 14:05:35,340 [WARNING]   响应体: {"developerMessage":"The request was invalid. This typically will happen due to validation errors which are provided.","httpStatusCode":"400","defaultUserMessage":"Validation errors exist.","userMessageGlobalisationCode":"validation.msg.validation.errors.exist","errors":[{"developerMessage":"The par
+2026-05-25 14:05:36,348 [INFO] → PUT https://localhost:8443/fineract-provider/api/v1/clients/7
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:05:36,457 [INFO] ← 400 /clients/7 [0.11s]
+2026-05-25 14:05:36,457 [WARNING]   响应体: {"developerMessage":"The request was invalid. This typically will happen due to validation errors which are provided.","httpStatusCode":"400","defaultUserMessage":"Validation errors exist.","userMessageGlobalisationCode":"validation.msg.validation.errors.exist","errors":[{"developerMessage":"The par

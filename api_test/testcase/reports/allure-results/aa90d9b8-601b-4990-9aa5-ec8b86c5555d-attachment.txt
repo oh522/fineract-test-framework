@@ -1,0 +1,4 @@
+INFO     api_test.common.base_api:base_api.py:28 当前环境: test | base_url: https://localhost:8443
+INFO     api_test.common.base_api:base_api.py:53 → POST https://localhost:8443/fineract-provider/api/v1/authentication
+INFO     api_test.common.base_api:base_api.py:64 ← 401 /authentication [1.16s]
+WARNING  api_test.common.base_api:base_api.py:66   响应体: {"developerMessage":"Invalid authentication details were passed in api request.","httpStatusCode":"401","defaultUserMessage":"Unauthenticated. Please login.","userMessageGlobalisationCode":"error.msg.not.authenticated"}

@@ -1,0 +1,10 @@
+2026-05-25 14:06:57,302 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/loans
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:06:57,388 [INFO] ← 400 /loans [0.09s]
+2026-05-25 14:06:57,388 [WARNING]   响应体: {"developerMessage":"The request was invalid. This typically will happen due to validation errors which are provided.","httpStatusCode":"400","defaultUserMessage":"Validation errors exist.","userMessageGlobalisationCode":"validation.msg.validation.errors.exist","errors":[{"developerMessage":"The par
+2026-05-25 14:06:58,403 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/loans
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:06:58,510 [INFO] ← 400 /loans [0.11s]
+2026-05-25 14:06:58,510 [WARNING]   响应体: {"developerMessage":"The request was invalid. This typically will happen due to validation errors which are provided.","httpStatusCode":"400","defaultUserMessage":"Validation errors exist.","userMessageGlobalisationCode":"validation.msg.validation.errors.exist","errors":[{"developerMessage":"The par

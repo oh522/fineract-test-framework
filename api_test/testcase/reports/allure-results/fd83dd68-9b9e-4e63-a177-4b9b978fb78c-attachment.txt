@@ -1,0 +1,10 @@
+2026-06-04 10:35:53,109 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/offices
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-06-04 10:35:53,228 [INFO] ← 403 /offices [0.12s]
+2026-06-04 10:35:53,228 [WARNING]   响应体: {"developerMessage":"The user associated with credentials passed on this request does not have sufficient privileges to perform this action.","httpStatusCode":"403","defaultUserMessage":"Insufficient privileges to perform this action.","userMessageGlobalisationCode":"error.msg.not.authorized","error
+2026-06-04 10:35:54,238 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/offices
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-06-04 10:35:54,318 [INFO] ← 403 /offices [0.08s]
+2026-06-04 10:35:54,318 [WARNING]   响应体: {"developerMessage":"The user associated with credentials passed on this request does not have sufficient privileges to perform this action.","httpStatusCode":"403","defaultUserMessage":"Insufficient privileges to perform this action.","userMessageGlobalisationCode":"error.msg.not.authorized","error

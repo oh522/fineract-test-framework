@@ -1,0 +1,20 @@
+2026-05-25 09:46:40,965 [INFO] 当前环境: test | base_url: https://localhost:8443
+2026-05-25 09:46:40,965 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/clients
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 09:46:41,111 [INFO] ← 200 /clients [0.15s]
+2026-05-25 09:46:41,112 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/clients/5
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 09:46:41,124 [INFO] ← 200 /clients/5 [0.01s]
+2026-05-25 09:46:41,130 [INFO] DB 已连接： localhost/fineract_default
+2026-05-25 09:46:42,365 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/clients/5
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 09:46:42,378 [INFO] ← 200 /clients/5 [0.01s]
+2026-05-25 09:46:42,400 [INFO] DB 已连接： localhost/fineract_default
+2026-05-25 09:46:43,459 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/clients/5
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 09:46:43,470 [INFO] ← 200 /clients/5 [0.01s]
+2026-05-25 09:46:43,490 [INFO] DB 已连接： localhost/fineract_default

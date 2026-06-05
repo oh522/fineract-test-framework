@@ -1,5 +1,5 @@
 from typing import Optional
-from common.base_api import BaseApi
+from api_test.common.base_api import BaseApi
 
 
 class UserApi(BaseApi):
@@ -46,6 +46,7 @@ class UserApi(BaseApi):
 
     def change_password(self, user_id: int, payload: dict):
         return self.post(f"/users/{user_id}/changepassword", json=payload)
+
 
 
 

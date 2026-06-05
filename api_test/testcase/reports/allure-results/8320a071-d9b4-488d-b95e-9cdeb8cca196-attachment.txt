@@ -1,0 +1,3 @@
+INFO     api_test.common.base_api:base_api.py:53 → POST https://localhost:8443/fineract-provider/api/v1/savingsaccounts/3/transactions?command=withdrawal
+INFO     api_test.common.base_api:base_api.py:64 ← 403 /savingsaccounts/3/transactions?command=withdrawal [0.09s]
+WARNING  api_test.common.base_api:base_api.py:66   响应体: {"developerMessage":"Request was understood but caused a domain rule violation.","httpStatusCode":"403","defaultUserMessage":"Errors contain reason for domain rule violation.","userMessageGlobalisationCode":"validation.msg.domain.rule.violation","errors":[{"developerMessage":"Insufficient account ba

@@ -1,0 +1,3 @@
+INFO     api_test.common.base_api:base_api.py:53 → POST https://localhost:8443/fineract-provider/api/v1/authentication
+INFO     api_test.common.base_api:base_api.py:64 ← 500 /authentication [0.03s]
+WARNING  api_test.common.base_api:base_api.py:66   响应体: {"timestamp":"2026-06-04T01:52:44.803Z","status":500,"error":"Internal Server Error","path":"/fineract-provider/api/v1/authentication"}

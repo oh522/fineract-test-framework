@@ -1,0 +1,4 @@
+INFO     api_test.common.base_api:base_api.py:28 当前环境: test | base_url: https://localhost:8443
+INFO     api_test.common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/clients/1
+INFO     api_test.common.base_api:base_api.py:64 ← 500 /clients/1 [0.00s]
+WARNING  api_test.common.base_api:base_api.py:66   响应体: {"errors": [{"developerMessage": "Internal Server Error"}]}

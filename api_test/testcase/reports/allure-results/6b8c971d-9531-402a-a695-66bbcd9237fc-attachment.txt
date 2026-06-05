@@ -1,0 +1,12 @@
+2026-05-25 14:17:37,333 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/loans/8
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:17:37,347 [INFO] ← 200 /loans/8 [0.01s]
+2026-05-25 14:17:37,348 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/loans/8/transactions?command=repayment
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:17:37,457 [INFO] ← 200 /loans/8/transactions?command=repayment [0.11s]
+2026-05-25 14:17:37,458 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/loans/8
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:17:37,473 [INFO] ← 200 /loans/8 [0.02s]

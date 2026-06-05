@@ -1,0 +1,8 @@
+2026-06-04 09:35:18,336 [INFO] 当前环境: test | base_url: https://localhost:8443
+2026-06-04 09:35:18,336 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/users
+2026-06-04 09:35:18,384 [WARNING]   连接失败 第1次重试: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))
+2026-06-04 09:35:20,417 [WARNING]   连接失败 第2次重试: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-06-04 09:35:25,768 [INFO] ← 501 /users [1.35s]
+2026-06-04 09:35:25,768 [WARNING]   响应体: {"developerMessage":"Request was understood but not implemented.","httpStatusCode":"501","defaultUserMessage":"Errors contain reason for not implemented violation.","userMessageGlobalisationCode":"validation.msg.not.implemented","errors":[{"developerMessage":"JsonObject","defaultUserMessage":"JsonOb

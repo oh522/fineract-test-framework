@@ -1,0 +1,3 @@
+INFO     common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/offices/999999
+INFO     common.base_api:base_api.py:64 ← 404 /offices/999999 [0.01s]
+WARNING  common.base_api:base_api.py:66   响应体: {"developerMessage":"The requested resource is not available.","httpStatusCode":"404","defaultUserMessage":"The requested resource is not available.","userMessageGlobalisationCode":"error.msg.resource.not.found","errors":[{"developerMessage":"Office with identifier 999999 does not exist","defaultUse

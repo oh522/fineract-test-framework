@@ -1,0 +1,6 @@
+INFO     api_test.common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/loans/8
+INFO     api_test.common.base_api:base_api.py:64 ← 200 /loans/8 [0.01s]
+INFO     api_test.common.base_api:base_api.py:53 → POST https://localhost:8443/fineract-provider/api/v1/loans/8/transactions?command=repayment
+INFO     api_test.common.base_api:base_api.py:64 ← 200 /loans/8/transactions?command=repayment [0.11s]
+INFO     api_test.common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/loans/8
+INFO     api_test.common.base_api:base_api.py:64 ← 200 /loans/8 [0.02s]

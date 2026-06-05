@@ -1,0 +1,6 @@
+2026-05-25 09:39:19,427 [INFO] 当前环境: test | base_url: https://localhost:8443
+2026-05-25 09:39:19,428 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/clients
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 09:39:19,649 [INFO] ← 400 /clients [0.22s]
+2026-05-25 09:39:19,649 [WARNING]   响应体: {"developerMessage":"The request was invalid. This typically will happen due to validation errors which are provided.","httpStatusCode":"400","defaultUserMessage":"Validation errors exist.","userMessageGlobalisationCode":"validation.msg.validation.errors.exist","errors":[{"developerMessage":"The par

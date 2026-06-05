@@ -1,0 +1,2 @@
+INFO     common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/offices/template
+INFO     common.base_api:base_api.py:64 ← 200 /offices/template [0.01s]

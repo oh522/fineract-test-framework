@@ -1,0 +1,2 @@
+INFO     common.base_api:base_api.py:53 → PUT https://localhost:8443/fineract-provider/api/v1/offices/3
+INFO     common.base_api:base_api.py:64 ← 200 /offices/3 [0.08s]

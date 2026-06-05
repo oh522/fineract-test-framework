@@ -1,0 +1,6 @@
+INFO     api_test.common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/savingsaccounts/4
+INFO     api_test.common.base_api:base_api.py:64 ← 200 /savingsaccounts/4 [0.01s]
+INFO     api_test.common.base_api:base_api.py:53 → POST https://localhost:8443/fineract-provider/api/v1/savingsaccounts/4/transactions?command=withdrawal
+INFO     api_test.common.base_api:base_api.py:64 ← 200 /savingsaccounts/4/transactions?command=withdrawal [0.09s]
+INFO     api_test.common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/savingsaccounts/4
+INFO     api_test.common.base_api:base_api.py:64 ← 200 /savingsaccounts/4 [0.01s]

@@ -1,0 +1,11 @@
+2026-06-04 09:35:46,885 [INFO] 当前环境: test | base_url: https://localhost:8443
+2026-06-04 09:35:46,886 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/users
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-06-04 09:35:46,978 [INFO] ← 501 /users [0.09s]
+2026-06-04 09:35:46,978 [WARNING]   响应体: {"developerMessage":"Request was understood but not implemented.","httpStatusCode":"501","defaultUserMessage":"Errors contain reason for not implemented violation.","userMessageGlobalisationCode":"validation.msg.not.implemented","errors":[{"developerMessage":"JsonObject","defaultUserMessage":"JsonOb
+2026-06-04 09:35:48,101 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/users
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-06-04 09:35:48,189 [INFO] ← 501 /users [0.09s]
+2026-06-04 09:35:48,189 [WARNING]   响应体: {"developerMessage":"Request was understood but not implemented.","httpStatusCode":"501","defaultUserMessage":"Errors contain reason for not implemented violation.","userMessageGlobalisationCode":"validation.msg.not.implemented","errors":[{"developerMessage":"JsonObject","defaultUserMessage":"JsonOb

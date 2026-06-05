@@ -1,0 +1,4 @@
+2026-05-25 14:20:19,528 [INFO] 当前环境: test | base_url: https://localhost:8443
+2026-05-25 14:20:19,528 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/clients/1
+2026-05-25 14:20:19,529 [INFO] ← 500 /clients/1 [0.00s]
+2026-05-25 14:20:19,529 [WARNING]   响应体: {"errors": [{"developerMessage": "Internal Server Error"}]}

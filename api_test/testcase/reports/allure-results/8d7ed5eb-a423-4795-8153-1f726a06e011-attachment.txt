@@ -1,0 +1,12 @@
+2026-05-25 14:58:03,805 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/savingsaccounts/4
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:58:03,815 [INFO] ← 200 /savingsaccounts/4 [0.01s]
+2026-05-25 14:58:03,815 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/savingsaccounts/4/transactions?command=withdrawal
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:58:03,904 [INFO] ← 200 /savingsaccounts/4/transactions?command=withdrawal [0.09s]
+2026-05-25 14:58:03,904 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/savingsaccounts/4
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:58:03,913 [INFO] ← 200 /savingsaccounts/4 [0.01s]

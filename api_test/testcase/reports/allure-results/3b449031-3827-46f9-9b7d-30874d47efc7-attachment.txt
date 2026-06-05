@@ -1,0 +1,4 @@
+2026-06-04 10:01:42,174 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/users/downloadtemplate
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-06-04 10:01:42,219 [INFO] ← 200 /users/downloadtemplate [0.04s]

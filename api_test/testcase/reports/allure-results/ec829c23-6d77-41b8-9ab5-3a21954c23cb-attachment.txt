@@ -1,0 +1,3 @@
+INFO     api_test.common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/clients/999999999
+INFO     api_test.common.base_api:base_api.py:64 ← 404 /clients/999999999 [0.07s]
+WARNING  api_test.common.base_api:base_api.py:66   响应体: {"developerMessage":"The requested resource is not available.","httpStatusCode":"404","defaultUserMessage":"The requested resource is not available.","userMessageGlobalisationCode":"error.msg.resource.not.found","errors":[{"developerMessage":"Client not found with valuer 999999999.","defaultUserMess

@@ -1,0 +1,6 @@
+
+✅ 客户已创建 clientId=18
+
+✅ 贷款产品已创建 productId=12
+
+✅ 贷款已放款 loanId=9

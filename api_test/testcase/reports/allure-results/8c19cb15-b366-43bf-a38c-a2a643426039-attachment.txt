@@ -1,0 +1,6 @@
+
+✅ 客户已创建 clientId=19
+
+✅ 储蓄产品已创建 productId=2
+
+✅ 储蓄账户已激活 savingsAccountId=2

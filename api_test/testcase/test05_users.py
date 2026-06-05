@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from common.api.user_api import UserApi
+from api_test.common.api.user_api import UserApi
 from utils.assertion import assert_response_time, assert_status, assert_value, assert_jsonpath, assert_field
 from utils.db_helper import DBHelper
 
@@ -172,5 +172,6 @@ class TestUsers:
 
         # 验证包含角色信息
         assert "availableRoles" in data, "模板应包含 availableRoles 字段"
+
 
 

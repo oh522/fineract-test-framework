@@ -1,5 +1,5 @@
 from typing import Optional
-from common.base_api import BaseApi
+from api_test.common.base_api import BaseApi
 
 
 class OfficeApi(BaseApi):
@@ -53,3 +53,4 @@ class OfficeApi(BaseApi):
     def update(self, office_id: int, payload: dict):
         """更新机构"""
         return self.put(f"/offices/{office_id}", json=payload)
+

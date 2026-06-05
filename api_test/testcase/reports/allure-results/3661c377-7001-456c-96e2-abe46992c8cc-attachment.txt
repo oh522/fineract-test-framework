@@ -1,0 +1,2 @@
+2026-05-25 14:20:19,533 [INFO] 当前环境: test | base_url: https://localhost:8443
+2026-05-25 14:20:19,533 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/loans

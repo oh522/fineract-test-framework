@@ -1,0 +1,8 @@
+2026-05-25 14:06:26,781 [INFO] → PUT https://localhost:8443/fineract-provider/api/v1/clients/8
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:06:26,880 [INFO] ← 200 /clients/8 [0.10s]
+2026-05-25 14:06:26,880 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/clients/8
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:06:26,891 [INFO] ← 200 /clients/8 [0.01s]

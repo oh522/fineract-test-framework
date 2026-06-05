@@ -1,0 +1,4 @@
+
+✅ 客户已创建 clientId=3
+
+✅ 贷款产品已创建 productId=2

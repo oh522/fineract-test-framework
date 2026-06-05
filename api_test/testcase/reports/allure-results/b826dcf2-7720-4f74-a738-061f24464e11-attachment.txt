@@ -1,0 +1,3 @@
+INFO     api_test.common.base_api:base_api.py:53 → POST https://localhost:8443/fineract-provider/api/v1/loans
+INFO     api_test.common.base_api:base_api.py:64 ← 400 /loans [0.11s]
+WARNING  api_test.common.base_api:base_api.py:66   响应体: {"developerMessage":"The request was invalid. This typically will happen due to validation errors which are provided.","httpStatusCode":"400","defaultUserMessage":"Validation errors exist.","userMessageGlobalisationCode":"validation.msg.validation.errors.exist","errors":[{"developerMessage":"The par

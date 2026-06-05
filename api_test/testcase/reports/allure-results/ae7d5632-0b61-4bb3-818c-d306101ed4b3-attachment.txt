@@ -1,0 +1,6 @@
+INFO     api_test.common.base_api:base_api.py:28 当前环境: test | base_url: https://localhost:8443
+INFO     api_test.common.base_api:base_api.py:53 → POST https://localhost:8443/fineract-provider/api/v1/clients
+INFO     api_test.common.base_api:base_api.py:64 ← 200 /clients [0.08s]
+INFO     api_test.common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/clients/6
+INFO     api_test.common.base_api:base_api.py:64 ← 200 /clients/6 [0.01s]
+INFO     utils.db_helper:db_helper.py:30 DB 已连接： localhost/fineract_default

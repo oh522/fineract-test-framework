@@ -1,0 +1,5 @@
+2026-05-25 09:43:56,883 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/authentication
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 09:43:56,953 [INFO] ← 401 /authentication [0.07s]
+2026-05-25 09:43:56,953 [WARNING]   响应体: {"developerMessage":"Invalid authentication details were passed in api request.","httpStatusCode":"401","defaultUserMessage":"Unauthenticated. Please login.","userMessageGlobalisationCode":"error.msg.not.authenticated"}

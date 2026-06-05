@@ -1,0 +1,9 @@
+2026-06-02 15:59:12,805 [INFO] 当前环境: test | base_url: https://localhost:8443
+2026-06-02 15:59:12,808 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/clients
+2026-06-02 15:59:12,968 [WARNING]   连接失败 第1次重试: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))
+2026-06-02 15:59:14,995 [WARNING]   连接失败 第2次重试: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))
+2026-06-02 15:59:19,021 [WARNING]   连接失败 第3次重试: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))
+2026-06-02 15:59:28,596 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/clients
+2026-06-02 15:59:28,621 [WARNING]   连接失败 第1次重试: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))
+2026-06-02 15:59:30,646 [WARNING]   连接失败 第2次重试: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))
+2026-06-02 15:59:34,671 [WARNING]   连接失败 第3次重试: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))

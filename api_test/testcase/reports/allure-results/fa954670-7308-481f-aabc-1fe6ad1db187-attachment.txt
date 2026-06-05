@@ -1,0 +1,5 @@
+2026-05-25 14:20:07,851 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/savingsaccounts/3/transactions?command=withdrawal
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:20:07,940 [INFO] ← 403 /savingsaccounts/3/transactions?command=withdrawal [0.09s]
+2026-05-25 14:20:07,940 [WARNING]   响应体: {"developerMessage":"Request was understood but caused a domain rule violation.","httpStatusCode":"403","defaultUserMessage":"Errors contain reason for domain rule violation.","userMessageGlobalisationCode":"validation.msg.domain.rule.violation","errors":[{"developerMessage":"Insufficient account ba

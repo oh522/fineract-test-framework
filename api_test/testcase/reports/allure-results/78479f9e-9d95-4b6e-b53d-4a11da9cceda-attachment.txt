@@ -1,0 +1,3 @@
+INFO     common.base_api:base_api.py:53 → POST https://localhost:8443/fineract-provider/api/v1/users/1/changepassword
+INFO     common.base_api:base_api.py:64 ← 404 /users/1/changepassword [0.05s]
+WARNING  common.base_api:base_api.py:66   响应体: {"timestamp":"2026-06-04T01:55:55.117Z","status":404,"error":"Not Found","path":"/fineract-provider/api/v1/users/1/changepassword"}

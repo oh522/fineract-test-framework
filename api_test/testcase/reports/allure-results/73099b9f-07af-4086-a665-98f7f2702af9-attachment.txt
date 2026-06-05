@@ -1,0 +1,4 @@
+INFO     common.base_api:base_api.py:53 → PUT https://localhost:8443/fineract-provider/api/v1/users/1
+INFO     common.base_api:base_api.py:64 ← 200 /users/1 [0.09s]
+INFO     common.base_api:base_api.py:53 → PUT https://localhost:8443/fineract-provider/api/v1/users/1
+INFO     common.base_api:base_api.py:64 ← 200 /users/1 [0.04s]

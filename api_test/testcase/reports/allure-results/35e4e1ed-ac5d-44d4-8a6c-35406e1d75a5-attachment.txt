@@ -1,0 +1,9 @@
+INFO     api_test.common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/loans/1/repaymentschedule
+INFO     api_test.common.base_api:base_api.py:64 ← 404 /loans/1/repaymentschedule [0.01s]
+WARNING  api_test.common.base_api:base_api.py:66   响应体: {"timestamp":"2026-05-25T06:08:12.173Z","status":404,"error":"Not Found","path":"/fineract-provider/api/v1/loans/1/repaymentschedule"}
+INFO     api_test.common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/loans/1/repaymentschedule
+INFO     api_test.common.base_api:base_api.py:64 ← 404 /loans/1/repaymentschedule [0.01s]
+WARNING  api_test.common.base_api:base_api.py:66   响应体: {"timestamp":"2026-05-25T06:08:13.195Z","status":404,"error":"Not Found","path":"/fineract-provider/api/v1/loans/1/repaymentschedule"}
+INFO     api_test.common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/loans/1/repaymentschedule
+INFO     api_test.common.base_api:base_api.py:64 ← 404 /loans/1/repaymentschedule [0.01s]
+WARNING  api_test.common.base_api:base_api.py:66   响应体: {"timestamp":"2026-05-25T06:08:14.217Z","status":404,"error":"Not Found","path":"/fineract-provider/api/v1/loans/1/repaymentschedule"}

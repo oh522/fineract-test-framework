@@ -1,0 +1,5 @@
+2026-06-04 10:35:50,348 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/offices/999999
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-06-04 10:35:50,358 [INFO] ← 404 /offices/999999 [0.01s]
+2026-06-04 10:35:50,358 [WARNING]   响应体: {"developerMessage":"The requested resource is not available.","httpStatusCode":"404","defaultUserMessage":"The requested resource is not available.","userMessageGlobalisationCode":"error.msg.resource.not.found","errors":[{"developerMessage":"Office with identifier 999999 does not exist","defaultUse

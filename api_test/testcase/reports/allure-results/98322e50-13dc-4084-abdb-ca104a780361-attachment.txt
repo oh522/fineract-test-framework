@@ -1,0 +1,5 @@
+2026-05-25 14:09:06,883 [INFO] → GET https://localhost:8443/fineract-provider/api/v1/loans/2/repaymentschedule
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:09:06,892 [INFO] ← 404 /loans/2/repaymentschedule [0.01s]
+2026-05-25 14:09:06,892 [WARNING]   响应体: {"timestamp":"2026-05-25T06:09:06.890Z","status":404,"error":"Not Found","path":"/fineract-provider/api/v1/loans/2/repaymentschedule"}

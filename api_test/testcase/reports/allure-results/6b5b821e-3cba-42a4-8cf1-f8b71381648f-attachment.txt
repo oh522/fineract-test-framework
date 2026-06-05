@@ -1,0 +1,7 @@
+INFO     api_test.common.base_api:base_api.py:28 当前环境: test | base_url: https://localhost:8443
+INFO     common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/users
+INFO     common.base_api:base_api.py:64 ← 200 /users [0.05s]
+INFO     common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/users/1
+INFO     common.base_api:base_api.py:64 ← 200 /users/1 [0.01s]
+INFO     common.base_api:base_api.py:53 → GET https://localhost:8443/fineract-provider/api/v1/users/1
+INFO     common.base_api:base_api.py:64 ← 200 /users/1 [0.01s]

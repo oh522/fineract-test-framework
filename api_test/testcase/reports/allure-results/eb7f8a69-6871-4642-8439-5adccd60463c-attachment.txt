@@ -1,0 +1,6 @@
+2026-05-25 14:06:38,227 [INFO] 当前环境: test | base_url: https://localhost:8443
+2026-05-25 14:06:38,228 [INFO] → POST https://localhost:8443/fineract-provider/api/v1/authentication
+D:\w\rjcs\python\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+2026-05-25 14:06:38,340 [INFO] ← 500 /authentication [0.11s]
+2026-05-25 14:06:38,341 [WARNING]   响应体: {"timestamp":"2026-05-25T06:06:38.334Z","status":500,"error":"Internal Server Error","path":"/fineract-provider/api/v1/authentication"}

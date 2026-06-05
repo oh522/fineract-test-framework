@@ -1,0 +1,3 @@
+2026-05-07 16:18:58,486 INFO → POST https://localhost:8443/fineract-provider/api/v1/authentication
+2026-05-07 16:18:58,684 INFO ← 500 /authentication
+2026-05-07 16:18:58,685 WARNING   响应: {"timestamp":"2026-05-07T08:18:58.669Z","status":500,"error":"Internal Server Error","path":"/fineract-provider/api/v1/authentication"}
