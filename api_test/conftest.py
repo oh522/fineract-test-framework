@@ -8,8 +8,8 @@ from api_test.common.api.auth_api import AuthApi
 from api_test.common.api.client_api import ClientApi
 from api_test.common.api.loan_api import LoanApi
 from api_test.common.api.savings_api import SavingsApi
-from common.api.offices_api import OfficeApi
-from common.api.user_api import UserApi
+from api_test.common.api.offices_api import OfficeApi
+from api_test.common.api.user_api import UserApi
 
 
 # ══════════════════════════════════════════════════
