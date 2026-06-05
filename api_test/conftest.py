@@ -8,6 +8,7 @@ from api_test.common.api.auth_api import AuthApi
 from api_test.common.api.client_api import ClientApi
 from api_test.common.api.loan_api import LoanApi
 from api_test.common.api.savings_api import SavingsApi
+from common.api.offices_api import OfficeApi
 from common.api.user_api import UserApi
 
 
@@ -58,6 +59,11 @@ def savings_api(base_api) -> SavingsApi:
 @pytest.fixture(scope="session")
 def user_api(base_api) -> UserApi:
     return _clone(UserApi, base_api)
+
+
+@pytest.fixture(scope="session")
+def offices_api(base_api) -> OfficeApi:
+    return _clone(OfficeApi, base_api)
 
 
 # ══════════════════════════════════════════════════
@@ -242,5 +248,35 @@ def users_id(user_api):
     yield user_id
 
 
+@pytest.fixture(scope="session")
+def offices_id(offices_api):
+    """创建测试机构，返回 officeId"""
+    import uuid
+    from datetime import datetime
+
+    # 生成唯一的外部 ID 避免冲突
+    external_id = f"TEST-OFFICE-{uuid.uuid4().hex[:8]}"
+
+    # 获取当前日期作为开业日期
+    opening_date = datetime.now().strftime("%d %B %Y")
+
+    payload = {
+        "name": f"自动化测试机构_{uuid.uuid4().hex[:6]}",
+        "openingDate": opening_date,
+        "parentId": 1,  # 父机构为 Head Office (ID=1)
+        "externalId": external_id,
+        "locale": "en",
+        "dateFormat": "dd MMMM yyyy"
+    }
+
+    res = offices_api.create(payload)
+    assert res.status_code == 200, f"创建机构失败: {res.text}"
+
+    office_id = res.json().get("resourceId")
+    assert isinstance(office_id, int) and office_id > 0
+
+    print(f"\n✅ 机构已创建 officeId={office_id}, name={payload['name']}")
+    yield office_id
+    print(f"\n🧹 [teardown] 机构 {office_id} 测试完成")
 
 
