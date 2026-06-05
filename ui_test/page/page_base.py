@@ -1,7 +1,7 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os
-from config import PATH
+from ui_test.config import PATH
 from tools import GetLog
 
 

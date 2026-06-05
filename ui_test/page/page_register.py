@@ -4,7 +4,7 @@ from tools import DriverTools
 class Register(BasePage):
     #网址
     def open_url(self):
-        from config import BASE_URL
+        from ui_test.config import BASE_URL
         self.driver.get(BASE_URL + "/common/member/reg")
     """注册页面类"""
     def __init__(self,driver):

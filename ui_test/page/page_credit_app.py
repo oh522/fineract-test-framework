@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from page.page_login import PageLogin
 class CreditAppPage(BasePage):
     def open_url(self):
-        from config import BASE_URL
+        from ui_test.config import BASE_URL
         self.driver.get(BASE_URL + "/common/member/login")
         # ... existing code ...
     def __init__(self, driver):

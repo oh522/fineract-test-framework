@@ -70,3 +70,4 @@ Stacktrace:
 	KERNEL32!BaseThreadInitThunk [0x7ff9086d257d+1d]
 	ntdll!RtlUserThreadStart [0x7ff909acaa58+28]
 
+2026-06-04 11:18:28,329 INFO [test_02_register.py(test_01_register_success:17)] - 注册结果：
